@@ -1,0 +1,3 @@
+rootProject.name = 'seg3125_lab3'
+
+include ':app'
