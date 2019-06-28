@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text } from 'react-native';
-import { Container, Header } from 'native-base';
+import LoginScreen from './app/screens/Login';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -21,10 +21,7 @@ type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <Container>
-        <Header />
-        <Text>I am some text</Text>
-      </Container>
+      <LoginScreen />
     );
   }
 }
