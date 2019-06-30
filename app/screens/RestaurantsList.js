@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Header, Left, Right, Body, Icon, Button, Title } from 'native-base';
+import { FlatList } from 'react-native';
+import { Header, Left, Right, Body, Icon, Button, Title, Container } from 'native-base';
+import Restaurants from '../components/resturants';
+import RestaurantListItem from '../components/RestaurantListItem'
 
 export default class RestaurantsListScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
@@ -23,9 +25,15 @@ export default class RestaurantsListScreen extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>TODO Restaurants list screen</Text>
-      </View>
+      <Container>
+        <FlatList
+          data={Restaurants}
+          renderItem={ ({item}) => (<RestaurantListItem item={item}/>)}
+          keyExtractor={ (item, index) => index.toString() }
+        >
+
+        </FlatList>
+      </Container>
     );
   }
 }
