@@ -6,9 +6,9 @@ import { Container, Header, Body, Title, Left, Right } from 'native-base';
 import LoginForm from '../components/LoginForm';
 
 export default class Login extends React.Component {
-  render() {
-    return (
-      <Container>
+  static navigationOptions = ({navigation}) => {
+    return {
+      header: (
         <Header>
           <Left></Left>
           <Body>
@@ -16,6 +16,13 @@ export default class Login extends React.Component {
           </Body>
           <Right></Right>
         </Header>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <Container>
         <Hero
           minHeight={200}
           source={Images.veganPasta}
@@ -33,7 +40,7 @@ export default class Login extends React.Component {
             </View>
           )}
         />
-        <LoginForm />
+        <LoginForm navigation={this.props.navigation} />
       </Container>
     )
   }
