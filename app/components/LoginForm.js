@@ -15,7 +15,7 @@ export default class LoginForm extends React.Component {
           placeholderTextColor="#999"
         />
       </Item>
-      <Button primary block>
+      <Button primary block onPress={() => this.props.navigation.navigate('RestaurantsList')}>
         <NBText>Find restaurants!</NBText>
       </Button>
     </Form>
