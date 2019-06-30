@@ -28,7 +28,7 @@ export default class RestaurantsListScreen extends React.Component {
       <Container>
         <FlatList
           data={Restaurants}
-          renderItem={ ({item}) => (<RestaurantListItem item={item}/>)}
+          renderItem={ ({item}) => (<RestaurantListItem navigation={this.props.navigation} item={item}/>)}
           keyExtractor={ (item, index) => index.toString() }
         >
 

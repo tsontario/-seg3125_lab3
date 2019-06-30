@@ -1,14 +1,16 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Content, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import { ListItem, Thumbnail, Text, Left, Body, Right, Button, Icon } from 'native-base';
 
 export default class RestaurantListItem extends React.Component {
   render() {
     return (
       <ListItem 
         thumbnail 
-        onPress={() => alert("Foobar")}
-    >
+        onPress={() => this.props.navigation.navigate("Menu", {
+          restaurant: this.props.item.restaurantName
+        })}
+      >
         <Left>
           <Thumbnail square source={this.props.item.thumbnail} />
         </Left>
@@ -28,15 +30,13 @@ export default class RestaurantListItem extends React.Component {
             <Text style={{color: "#555"}}>
               {this.props.item.style}
             </Text>
-            <Text style={{color: "#555", marginTop: 50, marginBottom: 0, paddingBottom: 0}}>
+            <Text style={{color: "#555"}}>
               {this.props.item.price}
             </Text>
           </View>
         </Body>
-        <Right>
-          <Button transparent>
-            <Text>Select</Text>
-          </Button>
+        <Right style={{paddingLeft: 30}}>
+          <Icon name="arrow-forward" />
         </Right>
       </ListItem>
     )
