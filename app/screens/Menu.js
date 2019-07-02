@@ -17,16 +17,19 @@ export default class MenuScreen extends React.Component {
     this.state = {
       itemsInCart: 0
     }
+    this.itemsInCart = [];
   }
 
   addItemsToCart(items){
     this.setState({itemsInCart: this.state.itemsInCart + items});
-    console.log(this.state.itemsInCart);
+    console.log(this.itemsInCart);
   }
 
   
   componentDidMount() {
     this.props.navigation.setParams({ getItemsInCart: this.state.itemsInCart });
+    
+    this.props.navigation.setParams({ itemsInCart: this.itemsInCart });
   }
 
   static navigationOptions = ({navigation}) => {
@@ -43,7 +46,7 @@ export default class MenuScreen extends React.Component {
           </Body>
           <Right>
             <TouchableOpacity
-              onPress={ () => navigation.navigate("Cart")}
+              onPress={ () => navigation.navigate("Cart", {items: navigation.getParam('itemsInCart')})}
               style={{flexDirection: "row"}}
             >
               <Icon name="cart" />
@@ -93,7 +96,7 @@ export default class MenuScreen extends React.Component {
             <Text style={styles.sectionHeaderStyle}>{section.title}</Text>
           )}
           renderItem={ ({item}) => (
-            <MenuListItem item={item} addItemsToCart={this.addItemsToCart}/>
+            <MenuListItem item={item} addItemsToCart={this.addItemsToCart} itemsInCart={this.itemsInCart}/>
           )}
           keyExtractor={(item, index) => index}
         />
@@ -106,6 +109,7 @@ class QuantityModal extends React.Component {
   constructor(props) {
     super(props)
     this.props.state = props.state;
+    this.props.itemsInCart = props.itemsInCart;
   }
 
   state = {
@@ -141,6 +145,7 @@ class QuantityModal extends React.Component {
 
   orderItem(){
     this.setState({ isModalVisible: false });
+    this.props.itemsInCart.push({quantity: this.state.amount, name: this.props.item.name, price: this.props.item.price})
     this.props.addItemsToCart(this.state.amount);
   }
 
@@ -186,6 +191,7 @@ class MenuListItem extends React.Component {
     super(props);
     this.modalRef = React.createRef();
     this.props.item = props.item;
+    this.props.itemsInCart = props.itemsInCart;
     this.props.addItemsToCart = props.addItemsToCart;
   }
 
@@ -197,7 +203,7 @@ class MenuListItem extends React.Component {
       >
         <Text style={[styles.sectionListItem, {flex: 2}]}>{this.props.item.name}</Text>
         <Text style={[styles.sectionListItem, {textAlign: "right", flex: 1}]}>${this.props.item.price}</Text>
-        <QuantityModal ref={this.modalRef} item={this.props.item} addItemsToCart={this.props.addItemsToCart}/>
+        <QuantityModal ref={this.modalRef} item={this.props.item} addItemsToCart={this.props.addItemsToCart} itemsInCart={this.props.itemsInCart}/>
       </ListItem>
     )
   }
