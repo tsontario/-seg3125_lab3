@@ -48,7 +48,8 @@ export default class Cart extends React.Component {
       }
        keyExtractor={(item, index) => index.toString()}/>
        <Text style={{position: 'relative', fontSize: 25, color: '#ff0000'}}>Total = {total}</Text>
-       <Button full danger style={{position: 'absolute', left: 0, bottom:0, right: 0}}><Text> Checkout </Text></Button>
+       <Button full danger style={{position: 'absolute', left: 0, bottom:0, right: 0}} 
+       onPress={() => this.props.navigation.navigate("Checkout")}><Text> Checkout </Text></Button>
        </View>
     )
   }
