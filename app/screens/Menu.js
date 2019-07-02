@@ -22,6 +22,8 @@ export default class MenuScreen extends React.Component {
 
   addItemsToCart(items){
     this.setState({itemsInCart: this.state.itemsInCart + items});
+    this.props.navigation.setParams({ itemsInCart: this.itemsInCart });
+
     console.log(this.itemsInCart);
   }
 

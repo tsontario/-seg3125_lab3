@@ -27,11 +27,15 @@ export default class Cart extends React.Component {
   }
   render() {
     const { navigation } = this.props;
+    total = 0.0;
     const items = navigation.getParam('items', []);
+    items.forEach(item => {
+      total= item.price + total;
+    });
     console.log(items);
     return (
       
-      
+      <View style={{height: "100%"}}>
       <FlatList data ={ items }
       renderItem={({item}) => 
       <ListItem
@@ -42,7 +46,10 @@ export default class Cart extends React.Component {
         <Icon name="trash" />
       </ListItem>
       }
-       keyExtractor={(item, index) => index}/>
+       keyExtractor={(item, index) => index.toString()}/>
+       <Text style={{position: 'relative', fontSize: 25, color: '#ff0000'}}>Total = {total}</Text>
+       <Button full danger style={{position: 'absolute', left: 0, bottom:0, right: 0}}><Text> Checkout </Text></Button>
+       </View>
     )
   }
 }
