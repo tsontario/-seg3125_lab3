@@ -33,6 +33,7 @@ export default class Cart extends React.Component {
       total= item.price + total;
     });
     console.log(items);
+
     return (
       
       <View style={{height: "100%", display: "flex"}}>
@@ -44,7 +45,7 @@ export default class Cart extends React.Component {
               <Text style={[styles.sectionListItem, {flex: 1}]}>{item.quantity}</Text>
               <Text style={[styles.sectionListItem, {flex: 2}]}>{item.name}</Text>
               <Text style={[styles.sectionListItem, {textAlign: "right", flex: 1}]}>${item.price}</Text>
-              <Icon name="trash" />
+              <Icon name="trash"/>
             </ListItem>
           )}
           keyExtractor={(item, index) => index.toString()}
@@ -56,6 +57,8 @@ export default class Cart extends React.Component {
     )
   }
 }
+
+
 
 const styles = StyleSheet.create({
   sectionHeaderStyle: {
