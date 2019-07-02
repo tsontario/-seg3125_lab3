@@ -2,11 +2,18 @@ import React from 'react';
 import { Text, Icon, Container, Header, Left, Button, Body, Title, Right, ListItem, Badge } from 'native-base';
 import { SectionList, View, StyleSheet, Button as NativeButton } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
 export default class Cart extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log("in constructor")
+    this.state = {
+      items: this.props.navigation.getParam('items', [])
+    }
+  }
 
   static navigationOptions = ({navigation}) => {
     return {
@@ -25,10 +32,19 @@ export default class Cart extends React.Component {
       )
     }
   }
+
+  removeItem(item) {
+    console.log(this.state.items)
+    console.log(item)
+    // Get items, remove by name
+    items = this.state.items
+    console.log(items.indexOf(item))
+    this.setState({items: items.splice(items, items.indexOf(item))})
+  }
+
   render() {
-    const { navigation } = this.props;
     total = 0.0;
-    const items = navigation.getParam('items', []);
+    items = this.state.items
     items.forEach(item => {
       total= item.price + total;
     });
@@ -44,7 +60,12 @@ export default class Cart extends React.Component {
               <Text style={[styles.sectionListItem, {flex: 1}]}>{item.quantity}</Text>
               <Text style={[styles.sectionListItem, {flex: 2}]}>{item.name}</Text>
               <Text style={[styles.sectionListItem, {textAlign: "right", flex: 1}]}>${item.price}</Text>
-              <Icon name="trash" />
+              <TouchableOpacity
+                onPress={ () => (this.removeItem(item))}
+                style={{flexDirection: "row"}}
+              >
+               <Icon name="trash" />
+              </TouchableOpacity>
             </ListItem>
           )}
           keyExtractor={(item, index) => index.toString()}
