@@ -35,21 +35,23 @@ export default class Cart extends React.Component {
     console.log(items);
     return (
       
-      <View style={{height: "100%"}}>
-      <FlatList data ={ items }
-      renderItem={({item}) => 
-      <ListItem
-        style={{display: "flex", flexDirection: "row"}}>
-        <Text style={[styles.sectionListItem, {flex: 1}]}>{item.quantity}</Text>
-        <Text style={[styles.sectionListItem, {flex: 2}]}>{item.name}</Text>
-        <Text style={[styles.sectionListItem, {textAlign: "right", flex: 1}]}>${item.price}</Text>
-        <Icon name="trash" />
-      </ListItem>
-      }
-       keyExtractor={(item, index) => index.toString()}/>
-       <Text style={{position: 'relative', fontSize: 25, color: '#ff0000'}}>Total = {total}</Text>
-       <Button full danger style={{position: 'absolute', left: 0, bottom:0, right: 0}}><Text> Checkout </Text></Button>
-       </View>
+      <View style={{height: "100%", display: "flex"}}>
+        <FlatList data ={ items }
+          style={{flex: 1}}
+          renderItem={({item}) => (
+            <ListItem
+              style={{display: "flex", flexDirection: "row"}}>
+              <Text style={[styles.sectionListItem, {flex: 1}]}>{item.quantity}</Text>
+              <Text style={[styles.sectionListItem, {flex: 2}]}>{item.name}</Text>
+              <Text style={[styles.sectionListItem, {textAlign: "right", flex: 1}]}>${item.price}</Text>
+              <Icon name="trash" />
+            </ListItem>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+        <Text style={{marginBottom: 60, paddingRight: 20, fontSize: 25, textAlign: "right"}}>Total = ${total}</Text>
+        <Button full danger style={{position: 'absolute', left: 0, bottom:0, right: 0, height: 50}}><Text>Proceed to Checkout </Text></Button>
+      </View>
     )
   }
 }
